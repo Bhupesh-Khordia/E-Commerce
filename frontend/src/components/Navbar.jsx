@@ -104,8 +104,9 @@ const Navbar = () => {
           <NavLink
             onClick={() => {
               setNavOpen(false);
+              setActiveLink("/");
             }}
-            className="py-3 pl-6 border-t border-gray-400 "
+            className={`py-3 pl-6 border-t border-gray-400 ${activeLink === "/" ? "bg-gray-800 text-white" : ""}`}
             to="/"
           >
             HOME
@@ -113,8 +114,9 @@ const Navbar = () => {
           <NavLink
             onClick={() => {
               setNavOpen(false);
+              setActiveLink("/collection");
             }}
-            className="py-3 pl-6 border-t border-gray-400 "
+            className={`py-3 pl-6 border-t border-gray-400 ${activeLink === "/collection" ? "bg-gray-800 text-white" : ""}`}
             to="/collection"
           >
             COLLECTION
@@ -122,8 +124,9 @@ const Navbar = () => {
           <NavLink
             onClick={() => {
               setNavOpen(false);
+              setActiveLink("/about");
             }}
-            className="py-3 pl-6 border-t border-gray-400 "
+            className={`py-3 pl-6 border-t border-gray-400 ${activeLink === "/about" ? "bg-gray-800 text-white" : ""}`}
             to="/about"
           >
             ABOUT
@@ -131,8 +134,9 @@ const Navbar = () => {
           <NavLink
             onClick={() => {
               setNavOpen(false);
+              setActiveLink("/contact");
             }}
-            className="py-3 pl-6 border-t border-gray-400  border-b "
+            className={`py-3 pl-6 border-t border-gray-400 border-b ${activeLink === "/contact" ? "bg-gray-800 text-white" : ""}`}
             to="/contact"
           >
             CONTACT
