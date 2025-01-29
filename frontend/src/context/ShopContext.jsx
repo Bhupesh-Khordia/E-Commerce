@@ -11,7 +11,7 @@ const ShopContextProvider = ( props ) => {
     const value = {
         products, currency, delivery_fee
     }
-  return <ShopContext.Provider>{children}</ShopContext.Provider>;
+  return <ShopContext.Provider value={value}>{props.children}</ShopContext.Provider>;
 }
 
 export default ShopContextProvider;
