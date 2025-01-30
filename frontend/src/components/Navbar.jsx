@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { assets } from "../assets/assets";
+import { ShopContext } from "../context/ShopContext";
 
 const Navbar = () => {
   const [activeLink, setActiveLink] = useState("/");
@@ -13,11 +14,18 @@ const Navbar = () => {
     { name: "CONTACT", path: "/contact" },
   ];
 
+  const { showSearch, setShowSearch } = useContext(ShopContext);
+
   return (
     <div className="flex justify-between items-center py-5 font-medium">
       <div>
         <Link to="/">
-          <img onClick={() => setActiveLink('/')} src={assets.logo} alt="Logo" className="w-36" />
+          <img
+            onClick={() => setActiveLink("/")}
+            src={assets.logo}
+            alt="Logo"
+            className="w-36"
+          />
         </Link>
       </div>
       <div>
@@ -46,11 +54,19 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="flex items-center gap-6">
+      <Link
+          to="/collection"
+          onClick={() => {
+            setActiveLink("/collection");
+            setShowSearch(true);
+          }}
+        >
         <img
           src={assets.search_icon}
           alt="search"
-          className="w-5 cursor-pointer"
+          className={`w-5 cursor-pointer`}
         />
+        </Link>
         <div className="group relative">
           <img
             src={assets.profile_icon}
@@ -65,7 +81,11 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-        <Link to="/cart" onClick={() => setActiveLink('/cart')} className="relative">
+        <Link
+          to="/cart"
+          onClick={() => setActiveLink("/cart")}
+          className="relative"
+        >
           <img src={assets.cart_icon} alt="cart" className="w-5 min-w-5" />
           <p className="absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px]">
             10
@@ -106,7 +126,9 @@ const Navbar = () => {
               setNavOpen(false);
               setActiveLink("/");
             }}
-            className={`py-3 pl-6 border-t border-gray-400 ${activeLink === "/" ? "bg-gray-800 text-white" : ""}`}
+            className={`py-3 pl-6 border-t border-gray-400 ${
+              activeLink === "/" ? "bg-gray-800 text-white" : ""
+            }`}
             to="/"
           >
             HOME
@@ -116,7 +138,9 @@ const Navbar = () => {
               setNavOpen(false);
               setActiveLink("/collection");
             }}
-            className={`py-3 pl-6 border-t border-gray-400 ${activeLink === "/collection" ? "bg-gray-800 text-white" : ""}`}
+            className={`py-3 pl-6 border-t border-gray-400 ${
+              activeLink === "/collection" ? "bg-gray-800 text-white" : ""
+            }`}
             to="/collection"
           >
             COLLECTION
@@ -126,7 +150,9 @@ const Navbar = () => {
               setNavOpen(false);
               setActiveLink("/about");
             }}
-            className={`py-3 pl-6 border-t border-gray-400 ${activeLink === "/about" ? "bg-gray-800 text-white" : ""}`}
+            className={`py-3 pl-6 border-t border-gray-400 ${
+              activeLink === "/about" ? "bg-gray-800 text-white" : ""
+            }`}
             to="/about"
           >
             ABOUT
@@ -136,7 +162,9 @@ const Navbar = () => {
               setNavOpen(false);
               setActiveLink("/contact");
             }}
-            className={`py-3 pl-6 border-t border-gray-400 border-b ${activeLink === "/contact" ? "bg-gray-800 text-white" : ""}`}
+            className={`py-3 pl-6 border-t border-gray-400 border-b ${
+              activeLink === "/contact" ? "bg-gray-800 text-white" : ""
+            }`}
             to="/contact"
           >
             CONTACT

@@ -11,6 +11,7 @@ const Collection = () => {
   const [category, setCategory] = useState([]);
   const [subcategory, setSubcategory] = useState([]);
   const [sortType, setSortType] = useState("relevant");
+  const {search, showSearch} = useContext(ShopContext);
 
   const handleCategory = (e) => {
     if (e.target.checked) {
@@ -30,11 +31,15 @@ const Collection = () => {
 
   const applyChanges = () => {
     let tempProducts = [...products];
+
+    // Apply Category
     if (category.length > 0) {
       tempProducts = tempProducts.filter((item) =>
         category.includes(item.category)
       );
     }
+
+    // Apply Subcategory
     if (subcategory.length > 0) {
       tempProducts = tempProducts.filter((item) =>
         subcategory.includes(item.subCategory)
@@ -53,12 +58,19 @@ const Collection = () => {
         break;
     }
 
+    // Apply Search
+    if (search && showSearch) {
+      tempProducts = tempProducts.filter((item) =>
+        item.name.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+
     setFilteredProducts(tempProducts);
   };
 
   useEffect(() => {
     applyChanges();
-  }, [category, subcategory, sortType]);
+  }, [category, subcategory, sortType, search, showSearch]);
 
   return (
     <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t">
