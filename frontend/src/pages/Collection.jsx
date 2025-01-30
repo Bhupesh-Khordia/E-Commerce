@@ -9,10 +9,45 @@ const Collection = () => {
   const [showFilter, setShowFilter] = useState(false);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [category, setCategory] = useState([]);
+  const [subcategory, setSubcategory] = useState([]);
+
+
 
   useEffect(() => {
     setFilteredProducts(products);
   }, []);
+
+  const handleCategory = (e) => {
+    if(e.target.checked){
+      setCategory([...category, e.target.value]);
+    } else {
+      setCategory(category.filter((item) =>(item !== e.target.value)));
+    }
+  };
+
+  const handleSubcategory = (e) => {
+    if(e.target.checked){
+      setSubcategory([...subcategory, e.target.value]);
+    } else {
+      setSubcategory(subcategory.filter((item) =>(item !== e.target.value)));
+    }
+  };
+
+  const applyChanges = () => {
+    let tempProducts = products;
+    if(category.length > 0){
+      tempProducts = tempProducts.filter((item) => category.includes(item.category));
+    }
+    if(subcategory.length > 0){
+      tempProducts = tempProducts.filter((item) => subcategory.includes(item.subCategory));
+    }
+    setFilteredProducts(tempProducts);
+  };
+
+  useEffect(() => {
+    applyChanges();
+  }, [category, subcategory]);
+
   return (
     <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t">
       {/* Filter Options  */}
@@ -37,14 +72,14 @@ const Collection = () => {
           <p className="mb-3 text-sm font-medium">CATEGORIES</p>
           <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
             <div className="flex gap-2">
-              <input className="w-3" type="checkbox" value={"Men"} /> Men
+              <input onClick={handleCategory} className="w-3" type="checkbox" value={"Men"} /> Men
             </div>
 
             <div className="flex gap-2">
-              <input className="w-3" type="checkbox" value={"Women"} /> Women
+              <input onClick={handleCategory} className="w-3" type="checkbox" value={"Women"} /> Women
             </div>
             <div className="flex gap-2">
-              <input className="w-3" type="checkbox" value={"Kids"} /> Kids
+              <input onClick={handleCategory} className="w-3" type="checkbox" value={"Kids"} /> Kids
             </div>
           </div>
         </div>
@@ -57,16 +92,16 @@ const Collection = () => {
           <p className="mb-3 text-sm font-medium">TYPE</p>
           <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
             <div className="flex gap-2">
-              <input className="w-3" type="checkbox" value={"Topwear"} />{" "}
+              <input onClick={handleSubcategory} className="w-3" type="checkbox" value={"Topwear"} />{" "}
               Topwear
             </div>
 
             <div className="flex gap-2">
-              <input className="w-3" type="checkbox" value={"Bottomwear"} />{" "}
+              <input onClick={handleSubcategory} className="w-3" type="checkbox" value={"Bottomwear"} />{" "}
               Bottomwear
             </div>
             <div className="flex gap-2">
-              <input className="w-3" type="checkbox" value={"Winterwear"} />{" "}
+              <input onClick={handleSubcategory} className="w-3" type="checkbox" value={"Winterwear"} />{" "}
               Winterwear
             </div>
           </div>
