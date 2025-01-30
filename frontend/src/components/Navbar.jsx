@@ -17,7 +17,7 @@ const Navbar = () => {
     <div className="flex justify-between items-center py-5 font-medium">
       <div>
         <Link to="/">
-          <img src={assets.logo} alt="Logo" className="w-36" />
+          <img onClick={() => setActiveLink('/')} src={assets.logo} alt="Logo" className="w-36" />
         </Link>
       </div>
       <div>
