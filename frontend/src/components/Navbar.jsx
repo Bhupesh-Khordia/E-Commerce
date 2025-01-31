@@ -6,6 +6,7 @@ import { ShopContext } from "../context/ShopContext";
 const Navbar = () => {
   const [activeLink, setActiveLink] = useState("/");
   const [navOpen, setNavOpen] = useState(false);
+  const {cartCount} = useContext(ShopContext);
 
   const navItems = [
     { name: "HOME", path: "/" },
@@ -14,7 +15,7 @@ const Navbar = () => {
     { name: "CONTACT", path: "/contact" },
   ];
 
-  const { showSearch, setShowSearch } = useContext(ShopContext);
+
 
   return (
     <div className="flex justify-between items-center py-5 font-medium">
@@ -58,7 +59,6 @@ const Navbar = () => {
           to="/collection"
           onClick={() => {
             setActiveLink("/collection");
-            setShowSearch(true);
           }}
         >
         <img
@@ -88,7 +88,7 @@ const Navbar = () => {
         >
           <img src={assets.cart_icon} alt="cart" className="w-5 min-w-5" />
           <p className="absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px]">
-            10
+            {cartCount}
           </p>
         </Link>
         <img
