@@ -7,6 +7,7 @@ const Navbar = () => {
   const [activeLink, setActiveLink] = useState("/");
   const [navOpen, setNavOpen] = useState(false);
   const {cartCount} = useContext(ShopContext);
+  const {showSearch, setShowSearch} = useContext(ShopContext);
 
   const navItems = [
     { name: "HOME", path: "/" },
@@ -59,6 +60,7 @@ const Navbar = () => {
           to="/collection"
           onClick={() => {
             setActiveLink("/collection");
+            setShowSearch(true);
           }}
         >
         <img
