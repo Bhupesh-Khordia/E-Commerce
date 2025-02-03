@@ -69,6 +69,7 @@ const Navbar = () => {
           className={`w-5 cursor-pointer`}
         />
         </Link>
+        <Link to={'/login'}>
         <div className="group relative">
           <img
             src={assets.profile_icon}
@@ -83,6 +84,7 @@ const Navbar = () => {
             </div>
           </div>
         </div>
+        </Link>
         <Link
           to="/cart"
           onClick={() => setActiveLink("/cart")}
