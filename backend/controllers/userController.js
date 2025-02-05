@@ -12,55 +12,57 @@ const loginUser = (req, res) => {
 
 }
 
-
 // Register
 const registerUser = async (req, res) => {
     try {
-        const {name, email, password} = req.body;
+        const { name, email, password } = req.body;
+
+        // Check if all fields are provided
+        if (!name || !email || !password) {
+            return res.json({ success: false, message: "All fields are required." });
+        }
 
         // Check if email already exists in database.
-        const exists = await userModel.findOne({email});
-        if(exists) {
-            res.json({success : false, message : "Account already exists."});
+        const exists = await userModel.findOne({ email });
+        if (exists) {
+            return res.json({ success: false, message: "Account already exists." });
         }
 
         // Check if email is valid.
-        if(!validator.isEmail(email)) {
-            res.json({success : false, message : "Please enter valid email."});
+        if (!validator.isEmail(email)) {
+            return res.json({ success: false, message: "Please enter a valid email." });
         }
 
         // Check if password is strong enough.
-        if(password.length < 8) {
-            res.json({success : false, message : "Please enter a strong password."});
+        if (password.length < 8) {
+            return res.json({ success: false, message: "Please enter a strong password (at least 8 characters)." });
         }
 
         // Hash password.
-        const salt = await bcrypt.genSalt(10); // Size 10
+        const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
-
 
         // Create new user
         const newUser = new userModel({
-            name, 
+            name,
             email,
-            password : hashedPassword
-        })
+            password: hashedPassword
+        });
 
         // Add user in model.
         const user = await newUser.save();
 
-        // Create Token for user to let him login
+        // Create Token for user to let them log in
         const token = createToken(user._id);
 
-
-        res.json({success : true, token});
-
+        return res.json({ success: true, token });
 
     } catch (error) {
-        console.log(error);
-        res.json({success:false, message:error.message})
+        console.error(error);
+        return res.status(500).json({ success: false, message: "Internal Server Error" });
     }
 }
+
 
 
 // Admin Login
