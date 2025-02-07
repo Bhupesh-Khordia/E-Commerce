@@ -14,7 +14,7 @@ const BestSeller = () => {
         .filter((item) => (item.bestseller ))
         .slice(0, 5)
     );
-  }, []);
+  }, [products]);
 
 
   return (
