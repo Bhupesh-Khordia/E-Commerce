@@ -6,8 +6,16 @@ import { ShopContext } from "../context/ShopContext";
 const Navbar = () => {
   const [activeLink, setActiveLink] = useState("/");
   const [navOpen, setNavOpen] = useState(false);
-  const {cartCount} = useContext(ShopContext);
-  const {showSearch, setShowSearch} = useContext(ShopContext);
+  const { cartCount } = useContext(ShopContext);
+  const { showSearch, setShowSearch, navigate, token, setToken, setCartItems } =
+    useContext(ShopContext);
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    setToken("");
+    setCartItems({});
+    navigate("/login");
+  };
 
   const navItems = [
     { name: "HOME", path: "/" },
@@ -15,8 +23,6 @@ const Navbar = () => {
     { name: "ABOUT", path: "/about" },
     { name: "CONTACT", path: "/contact" },
   ];
-
-
 
   return (
     <div className="flex justify-between items-center py-5 font-medium">
@@ -56,35 +62,41 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="flex items-center gap-6">
-      <Link
+        <Link
           to="/collection"
           onClick={() => {
             setActiveLink("/collection");
             setShowSearch(true);
           }}
         >
-        <img
-          src={assets.search_icon}
-          alt="search"
-          className={`w-5 cursor-pointer`}
-        />
+          <img
+            src={assets.search_icon}
+            alt="search"
+            className={`w-5 cursor-pointer`}
+          />
         </Link>
-        <Link to={'/login'}>
         <div className="group relative">
           <img
+            onClick={() => {
+              token ? null : navigate("/login");
+            }}
             src={assets.profile_icon}
             alt="profile"
             className="w-5 cursor-pointer"
           />
           <div className="hidden group-hover:block absolute right-0 pt-4">
-            <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded">
-              <p className="cursor-pointer hover:text-black">My Profile</p>
-              <p className="cursor-pointer hover:text-black">Orders</p>
-              <p className="cursor-pointer hover:text-black">Logout</p>
-            </div>
+            {/* Dropdown */}
+            {token && (
+              <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded">
+                {/* <p className="cursor-pointer hover:text-black">My Profile</p> */}
+                <p onClick={() => navigate('/orders')} className="cursor-pointer hover:text-black">Orders</p>
+                <p onClick={logout} className="cursor-pointer hover:text-black">
+                  Logout
+                </p>
+              </div>
+            )}
           </div>
         </div>
-        </Link>
         <Link
           to="/cart"
           onClick={() => setActiveLink("/cart")}
