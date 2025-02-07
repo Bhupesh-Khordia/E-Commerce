@@ -98,13 +98,15 @@ const ShopContextProvider = (props) => {
   const getCartAmount = () => {
     let amount = 0;
     for (const item in cartItems) {
-      let itemInfo = products.find((product) => product._id === parseInt(item));
+      let itemInfo = products.find((product) => product._id === item);
       for (const size in cartItems[item]) {
         try {
           if (cartItems[item][size] > 0) {
             amount += itemInfo.price * cartItems[item][size];
           }
-        } catch (error) {}
+        } catch (error) {
+          console.log(error);
+        }
       }
     }
     return amount;
@@ -149,6 +151,7 @@ const ShopContextProvider = (props) => {
     showSearch,
     setShowSearch,
     cartItems,
+    setCartItems,
     addToCart,
     cartCount,
     updateQuantity,
