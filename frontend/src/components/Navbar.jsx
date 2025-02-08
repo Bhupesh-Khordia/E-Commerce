@@ -6,7 +6,7 @@ import { ShopContext } from "../context/ShopContext";
 const Navbar = () => {
   const [activeLink, setActiveLink] = useState("/");
   const [navOpen, setNavOpen] = useState(false);
-  const { cartCount } = useContext(ShopContext);
+  const { cartCount, adminUrl } = useContext(ShopContext);
   const { showSearch, setShowSearch, navigate, token, setToken, setCartItems } =
     useContext(ShopContext);
 
@@ -36,7 +36,7 @@ const Navbar = () => {
           />
         </Link>
       </div>
-      <div>
+      <div className="flex">
         <ul className="hidden sm:flex gap-5 text-sm text-gray-700">
           {navItems.map((item, index) => (
             <NavLink
@@ -60,6 +60,14 @@ const Navbar = () => {
             </NavLink>
           ))}
         </ul>
+            <button
+              onClick={() => {
+                window.location.href = adminUrl;
+              }}
+              className=" border-1 border-gray-400 px-4 py-1.5 ml-6 text-sm hidden sm:block rounded-4xl cursor-pointer"
+            >
+              Admin Panel
+            </button>
       </div>
       <div className="flex items-center gap-6">
         <Link
@@ -89,7 +97,12 @@ const Navbar = () => {
             {token && (
               <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded">
                 {/* <p className="cursor-pointer hover:text-black">My Profile</p> */}
-                <p onClick={() => navigate('/orders')} className="cursor-pointer hover:text-black">Orders</p>
+                <p
+                  onClick={() => navigate("/orders")}
+                  className="cursor-pointer hover:text-black"
+                >
+                  Orders
+                </p>
                 <p onClick={logout} className="cursor-pointer hover:text-black">
                   Logout
                 </p>
@@ -185,6 +198,15 @@ const Navbar = () => {
           >
             CONTACT
           </NavLink>
+          <button
+            onClick={() => {
+              setNavOpen(false);
+              window.location.href = adminUrl;
+            }}
+            className="text-lg p-3 border-2"
+          >
+            Admin Panel
+          </button>
         </div>
       </div>
     </div>

@@ -11,6 +11,7 @@ const ShopContextProvider = (props) => {
   const delivery_fee = 10;
 
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  const adminUrl = import.meta.env.VITE_ADMIN_URL;
 
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false);
@@ -160,7 +161,8 @@ const ShopContextProvider = (props) => {
     navigate,
     backendUrl,
     token,
-    setToken
+    setToken,
+    adminUrl
   };
   return (
     <ShopContext.Provider value={value}>{props.children}</ShopContext.Provider>
