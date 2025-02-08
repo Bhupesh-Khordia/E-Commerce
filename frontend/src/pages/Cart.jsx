@@ -15,9 +15,6 @@ const Cart = () => {
       for (const items in cartItems) {
         for (const item in cartItems[items]) {
           if (cartItems[items][item] > 0) {
-            const product = products.find(
-              (product) => product.id === parseInt(item)
-            );
             tempData.push({
               _id: items,
               size: item,
@@ -36,9 +33,7 @@ const Cart = () => {
       </div>
       <div>
         {cartData.map((item, index) => {
-          const productData = products.find(
-            (product) => product._id === item._id
-          );
+          const productData = products.find((product) => product._id === item._id);
 
           return (
             <div

@@ -6,7 +6,7 @@ import Stripe from "stripe";
 const currency = "usd";
 const deliveryCharge = 10;
 
-// Stripe Gateway Initialize
+// Stripe Gateway Initialize 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 // Placing order using COD

@@ -11,6 +11,7 @@ const Product = () => {
   const [image, setImage] = useState("");
   const [size, setSize] = useState("");
   const {addToCart} = useContext(ShopContext);
+  const sizeOrder = ["S", "M", "L", "XL", "XXL"];
 
   const fetchProductData = async () => {
     await products.map((item) => {
@@ -74,7 +75,7 @@ const Product = () => {
           <div className="flex flex-col gap-4 my-8">
             <p>Select Size</p>
             <div className="flex gap-2">
-              {productData.sizes.map((item, index) => (
+              {productData.sizes.sort((a, b) => sizeOrder.indexOf(a) - sizeOrder.indexOf(b)).map((item, index) => (
                 <button
                   onClick={() => setSize(item)}
                   className={`border py-2 px-4 bg-gray-100 ${
